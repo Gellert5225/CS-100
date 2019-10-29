@@ -74,10 +74,17 @@ std::vector<std::vector<std::string>> parse(std::string fileName) {
 
         std::vector<std::string> cmds;
         while (iss >> arg) {
-            if (arg.back() == ';') arg = arg.substr(0, arg.size() - 1);
+            bool endOfCmd = false;
+            if (arg.back() == ';') {
+                arg = arg.substr(0, arg.size() - 1);
+                endOfCmd = true;
+            }
             cmds.push_back(arg);
+            if (endOfCmd || iss.eof()) {
+                result.push_back(cmds);
+                cmds.clear();
+            }
         }
-        result.push_back(cmds);
     }
 
     return result;
@@ -85,9 +92,9 @@ std::vector<std::vector<std::string>> parse(std::string fileName) {
 
 void printVector(const std::vector<std::vector<std::string>>& vec) {
     for (auto i = 0; i < vec.size(); i++) {
+        std::cout << i + 1 << "th cmd: ";
         for (auto j = 0; j < vec[i].size(); j++) {
             std::cout << vec[i][j] << " ";
         }
     }
-    
 }
