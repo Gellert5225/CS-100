@@ -19,6 +19,8 @@ int main (int argc, char** argv) {
     
     printVector(parse("./sample.txt"));
 
+    thread();
+
     return 0;
 }
 
