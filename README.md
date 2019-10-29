@@ -40,12 +40,12 @@ The parser code and a sample program for using multithreading is under `prototyp
 
 # Development and Testing Roadmap
 - Create minimal implementation of all classes
-    - Base and Connector
-    - Command
-- Implement the parser function.
-- Unit test without concurrency.
-- Implement concurrency.
-- Test concurrency. 
+    - [Base and Connector](https://github.com/cs100/assignment-impromptu/issues/1)
+    - [Command](https://github.com/cs100/assignment-impromptu/issues/2)
+- [Implement the parser function](https://github.com/cs100/assignment-impromptu/issues/3)
+- [Unit test without concurrency](https://github.com/cs100/assignment-impromptu/issues/4)
+- [Implement concurrency](https://github.com/cs100/assignment-impromptu/issues/5)
+- [Test concurrency](https://github.com/cs100/assignment-impromptu/issues/6)
 - Deploy.
 
 [uml_diagram]: ./images/shell.png
