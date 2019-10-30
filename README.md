@@ -1,7 +1,7 @@
 # CS 100 Programming Project
 ## Fall 2019 <br>
-**Jiahe Gellert Li** -- #862157315 <br>
-**Steven Joseph** -- #862083506
+**Jiahe Gellert Li**, 862157315, jli542@ucr.edu <br>
+**Steven Joseph**, 862083506, sjose007@ucr.edu
 
 # Introduction
 This is a custom unix shell program which can take various user inputs and exucute them. User can either type a single command or a string of commands separated by connectors.<br>
