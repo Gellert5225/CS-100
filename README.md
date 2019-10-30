@@ -48,4 +48,4 @@ The parser code and a sample program for using multithreading is under `prototyp
 - [Test concurrency](https://github.com/cs100/assignment-impromptu/issues/6)
 - Deploy.
 
-[uml_diagram]: ./images/shell.png
+[uml_diagram]: ./images/RShell.png
