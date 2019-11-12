@@ -54,7 +54,7 @@ bool Command::execute() {
     } else { // parent process
         time(&when);
         //printf("parent process %d started at %s", getpid(), ctime(&when));
-        endId = waitpid(childId, &status, 0);
+        endId = waitpid(childId, &status, WNOHANG|WUNTRACED);
         //printf("%i\n", endId);
         if (endId == -1) {
             perror("waitpid() error");
