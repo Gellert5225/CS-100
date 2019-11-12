@@ -7,6 +7,7 @@ Connector::~Connector() {}
 void Connector::setLeft(Base* b) {
     left = b;
 }
+
 void Connector::setRight(Base* b) {
     right = b;
 }

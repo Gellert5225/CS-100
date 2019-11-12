@@ -6,10 +6,10 @@
 
 class Command : public Base {
 public:
-    Command();
+    Command(int size);
     ~Command();
 
-    void setArgs(const std::vector<std::string>& v);
+    void setArgs(const std::vector<std::string>* v);
     
     bool execute();
     virtual std::string toString();
