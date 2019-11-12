@@ -8,9 +8,8 @@ public:
     Base() {}
     ~Base() {}
 
-    virtual void execute() = 0;
+    virtual bool execute() = 0;
     virtual std::string toString() = 0;
-    virtual bool run() = 0;
 };
 
 #endif

@@ -2,13 +2,20 @@
 #define __COMMAND_HPP__
 
 #include "Base.hpp"
+#include <vector>
 
 class Command : public Base {
 public:
     Command();
     ~Command();
 
-    virtual void execute();
+    void setArgs(const std::vector<std::string>& v);
+    
+    bool execute();
+    virtual std::string toString();
+private:
+    int size;
+    const char** args;
 };
 
 #endif
