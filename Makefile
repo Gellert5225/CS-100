@@ -234,140 +234,140 @@ gtest/fast:
 	$(MAKE) -f vendor/googletest/googletest/CMakeFiles/gtest.dir/build.make vendor/googletest/googletest/CMakeFiles/gtest.dir/build
 .PHONY : gtest/fast
 
-RShell/src/AndOrSemicolon.o: RShell/src/AndOrSemicolon.cpp.o
+src/AndOrSemicolon.o: src/AndOrSemicolon.cpp.o
 
-.PHONY : RShell/src/AndOrSemicolon.o
-
-# target to build an object file
-RShell/src/AndOrSemicolon.cpp.o:
-	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/RShell/src/AndOrSemicolon.cpp.o
-.PHONY : RShell/src/AndOrSemicolon.cpp.o
-
-RShell/src/AndOrSemicolon.i: RShell/src/AndOrSemicolon.cpp.i
-
-.PHONY : RShell/src/AndOrSemicolon.i
-
-# target to preprocess a source file
-RShell/src/AndOrSemicolon.cpp.i:
-	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/RShell/src/AndOrSemicolon.cpp.i
-.PHONY : RShell/src/AndOrSemicolon.cpp.i
-
-RShell/src/AndOrSemicolon.s: RShell/src/AndOrSemicolon.cpp.s
-
-.PHONY : RShell/src/AndOrSemicolon.s
-
-# target to generate assembly for a file
-RShell/src/AndOrSemicolon.cpp.s:
-	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/RShell/src/AndOrSemicolon.cpp.s
-.PHONY : RShell/src/AndOrSemicolon.cpp.s
-
-RShell/src/Command.o: RShell/src/Command.cpp.o
-
-.PHONY : RShell/src/Command.o
+.PHONY : src/AndOrSemicolon.o
 
 # target to build an object file
-RShell/src/Command.cpp.o:
-	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/RShell/src/Command.cpp.o
-.PHONY : RShell/src/Command.cpp.o
+src/AndOrSemicolon.cpp.o:
+	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/src/AndOrSemicolon.cpp.o
+.PHONY : src/AndOrSemicolon.cpp.o
 
-RShell/src/Command.i: RShell/src/Command.cpp.i
+src/AndOrSemicolon.i: src/AndOrSemicolon.cpp.i
 
-.PHONY : RShell/src/Command.i
+.PHONY : src/AndOrSemicolon.i
 
 # target to preprocess a source file
-RShell/src/Command.cpp.i:
-	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/RShell/src/Command.cpp.i
-.PHONY : RShell/src/Command.cpp.i
+src/AndOrSemicolon.cpp.i:
+	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/src/AndOrSemicolon.cpp.i
+.PHONY : src/AndOrSemicolon.cpp.i
 
-RShell/src/Command.s: RShell/src/Command.cpp.s
+src/AndOrSemicolon.s: src/AndOrSemicolon.cpp.s
 
-.PHONY : RShell/src/Command.s
+.PHONY : src/AndOrSemicolon.s
 
 # target to generate assembly for a file
-RShell/src/Command.cpp.s:
-	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/RShell/src/Command.cpp.s
-.PHONY : RShell/src/Command.cpp.s
+src/AndOrSemicolon.cpp.s:
+	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/src/AndOrSemicolon.cpp.s
+.PHONY : src/AndOrSemicolon.cpp.s
 
-RShell/src/CommandLine.o: RShell/src/CommandLine.cpp.o
+src/Command.o: src/Command.cpp.o
 
-.PHONY : RShell/src/CommandLine.o
+.PHONY : src/Command.o
 
 # target to build an object file
-RShell/src/CommandLine.cpp.o:
-	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/RShell/src/CommandLine.cpp.o
-.PHONY : RShell/src/CommandLine.cpp.o
+src/Command.cpp.o:
+	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/src/Command.cpp.o
+.PHONY : src/Command.cpp.o
 
-RShell/src/CommandLine.i: RShell/src/CommandLine.cpp.i
+src/Command.i: src/Command.cpp.i
 
-.PHONY : RShell/src/CommandLine.i
+.PHONY : src/Command.i
 
 # target to preprocess a source file
-RShell/src/CommandLine.cpp.i:
-	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/RShell/src/CommandLine.cpp.i
-.PHONY : RShell/src/CommandLine.cpp.i
+src/Command.cpp.i:
+	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/src/Command.cpp.i
+.PHONY : src/Command.cpp.i
 
-RShell/src/CommandLine.s: RShell/src/CommandLine.cpp.s
+src/Command.s: src/Command.cpp.s
 
-.PHONY : RShell/src/CommandLine.s
+.PHONY : src/Command.s
 
 # target to generate assembly for a file
-RShell/src/CommandLine.cpp.s:
-	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/RShell/src/CommandLine.cpp.s
-.PHONY : RShell/src/CommandLine.cpp.s
+src/Command.cpp.s:
+	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/src/Command.cpp.s
+.PHONY : src/Command.cpp.s
 
-RShell/src/Connector.o: RShell/src/Connector.cpp.o
+src/CommandLine.o: src/CommandLine.cpp.o
 
-.PHONY : RShell/src/Connector.o
+.PHONY : src/CommandLine.o
 
 # target to build an object file
-RShell/src/Connector.cpp.o:
-	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/RShell/src/Connector.cpp.o
-.PHONY : RShell/src/Connector.cpp.o
+src/CommandLine.cpp.o:
+	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/src/CommandLine.cpp.o
+.PHONY : src/CommandLine.cpp.o
 
-RShell/src/Connector.i: RShell/src/Connector.cpp.i
+src/CommandLine.i: src/CommandLine.cpp.i
 
-.PHONY : RShell/src/Connector.i
+.PHONY : src/CommandLine.i
 
 # target to preprocess a source file
-RShell/src/Connector.cpp.i:
-	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/RShell/src/Connector.cpp.i
-.PHONY : RShell/src/Connector.cpp.i
+src/CommandLine.cpp.i:
+	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/src/CommandLine.cpp.i
+.PHONY : src/CommandLine.cpp.i
 
-RShell/src/Connector.s: RShell/src/Connector.cpp.s
+src/CommandLine.s: src/CommandLine.cpp.s
 
-.PHONY : RShell/src/Connector.s
+.PHONY : src/CommandLine.s
 
 # target to generate assembly for a file
-RShell/src/Connector.cpp.s:
-	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/RShell/src/Connector.cpp.s
-.PHONY : RShell/src/Connector.cpp.s
+src/CommandLine.cpp.s:
+	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/src/CommandLine.cpp.s
+.PHONY : src/CommandLine.cpp.s
 
-RShell/src/main.o: RShell/src/main.cpp.o
+src/Connector.o: src/Connector.cpp.o
 
-.PHONY : RShell/src/main.o
+.PHONY : src/Connector.o
 
 # target to build an object file
-RShell/src/main.cpp.o:
-	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/RShell/src/main.cpp.o
-.PHONY : RShell/src/main.cpp.o
+src/Connector.cpp.o:
+	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/src/Connector.cpp.o
+.PHONY : src/Connector.cpp.o
 
-RShell/src/main.i: RShell/src/main.cpp.i
+src/Connector.i: src/Connector.cpp.i
 
-.PHONY : RShell/src/main.i
+.PHONY : src/Connector.i
 
 # target to preprocess a source file
-RShell/src/main.cpp.i:
-	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/RShell/src/main.cpp.i
-.PHONY : RShell/src/main.cpp.i
+src/Connector.cpp.i:
+	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/src/Connector.cpp.i
+.PHONY : src/Connector.cpp.i
 
-RShell/src/main.s: RShell/src/main.cpp.s
+src/Connector.s: src/Connector.cpp.s
 
-.PHONY : RShell/src/main.s
+.PHONY : src/Connector.s
 
 # target to generate assembly for a file
-RShell/src/main.cpp.s:
-	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/RShell/src/main.cpp.s
-.PHONY : RShell/src/main.cpp.s
+src/Connector.cpp.s:
+	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/src/Connector.cpp.s
+.PHONY : src/Connector.cpp.s
+
+src/main.o: src/main.cpp.o
+
+.PHONY : src/main.o
+
+# target to build an object file
+src/main.cpp.o:
+	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
+
+src/main.i: src/main.cpp.i
+
+.PHONY : src/main.i
+
+# target to preprocess a source file
+src/main.cpp.i:
+	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
+
+src/main.s: src/main.cpp.s
+
+.PHONY : src/main.s
+
+# target to generate assembly for a file
+src/main.cpp.s:
+	$(MAKE) -f CMakeFiles/rshellexe.dir/build.make CMakeFiles/rshellexe.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
 
 unit_test/unit_test.o: unit_test/unit_test.cpp.o
 
@@ -414,21 +414,21 @@ help:
 	@echo "... gmock"
 	@echo "... gtest_main"
 	@echo "... gtest"
-	@echo "... RShell/src/AndOrSemicolon.o"
-	@echo "... RShell/src/AndOrSemicolon.i"
-	@echo "... RShell/src/AndOrSemicolon.s"
-	@echo "... RShell/src/Command.o"
-	@echo "... RShell/src/Command.i"
-	@echo "... RShell/src/Command.s"
-	@echo "... RShell/src/CommandLine.o"
-	@echo "... RShell/src/CommandLine.i"
-	@echo "... RShell/src/CommandLine.s"
-	@echo "... RShell/src/Connector.o"
-	@echo "... RShell/src/Connector.i"
-	@echo "... RShell/src/Connector.s"
-	@echo "... RShell/src/main.o"
-	@echo "... RShell/src/main.i"
-	@echo "... RShell/src/main.s"
+	@echo "... src/AndOrSemicolon.o"
+	@echo "... src/AndOrSemicolon.i"
+	@echo "... src/AndOrSemicolon.s"
+	@echo "... src/Command.o"
+	@echo "... src/Command.i"
+	@echo "... src/Command.s"
+	@echo "... src/CommandLine.o"
+	@echo "... src/CommandLine.i"
+	@echo "... src/CommandLine.s"
+	@echo "... src/Connector.o"
+	@echo "... src/Connector.i"
+	@echo "... src/Connector.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 	@echo "... unit_test/unit_test.o"
 	@echo "... unit_test/unit_test.i"
 	@echo "... unit_test/unit_test.s"

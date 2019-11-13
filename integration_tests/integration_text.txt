@@ -1,0 +1,21 @@
+Testing Exit commands...
+
+TEST_1: echo hello; exit
+ 	
+ 	----Expected----
+hello
+ 	----Actual----
+hello
+
+
+TEST_2: exit; echo hello; ls -a # echo whoa
+ 	
+ 	----Expected----
+ 	----Actual----
+
+
+TEST_3: exit && echo hello; ls -a # echo whoa
+ 	
+ 	----Expected----
+ 	----Actual----
+gellert@gellert-ubuntu$ 

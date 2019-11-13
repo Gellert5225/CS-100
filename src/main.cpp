@@ -17,7 +17,15 @@
 
 void parse(const std::string &cmdLine, CommandLine &result);
 
+void integration_test(int argc, char** argv);
+
 int main(int argc, char** argv) {
+    // for integration test only
+    if (strcmp(argv[1], "integration_test") == 0) {
+        integration_test(argc, argv);
+        return 0;
+    }
+
     char* userName = getlogin();
     char hostName[256] = "/0";
     gethostname(hostName, 256);
@@ -32,7 +40,7 @@ int main(int argc, char** argv) {
         parse(cmd, cl);
         reinterpret_cast<Connector*>(cl.b)->execute();
     }
-
+    
     return 0;
 }
 
@@ -43,12 +51,17 @@ void parse(const std::string &cmdLine, CommandLine &result) {
     std::string arg;
     Base* root = nullptr;
     Connector* c;
+    bool commented = false;
 
     while (iss >> arg) {
+        if (commented) break;
         bool endOfCmd = false;
         c = nullptr;
-    
-        if (arg == "||") {
+
+        if (arg.front() == '#') {
+            endOfCmd = true;
+            commented = true;
+        } else if (arg == "||") {
             c = new Or();
             endOfCmd = true;
         } else if (arg == "&&") {
@@ -65,8 +78,7 @@ void parse(const std::string &cmdLine, CommandLine &result) {
 
         if (iss.eof()) {endOfCmd = true;}
 
-        if (endOfCmd) {
-            // construct Command object
+        if (endOfCmd && buffer.size() != 0) {
             Command *cmd = new Command(buffer.size());
             std::vector<std::string> *cp = new std::vector<std::string>();
             *cp = buffer;
@@ -95,4 +107,17 @@ void parse(const std::string &cmdLine, CommandLine &result) {
 
     if (root == nullptr) root = new Semicolon();
     result.b = root;
+}
+
+void integration_test(int argc, char** argv) {
+    std::string cmd = "";
+    for(int i = 2; i < argc; i++) {
+        cmd += argv[i];
+        cmd += " ";
+    }
+    cmd.pop_back();
+    CommandLine cl;
+
+    parse(cmd, cl);
+    reinterpret_cast<Connector*>(cl.b)->execute();
 }
