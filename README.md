@@ -28,8 +28,14 @@ The Connector class is a base class for all connectors such as "; || &&".
 ## Semicolon, And, Or
 These are derived classes from Connector which will have different implementation for execute() function.
 
+## CommandLine
+A class that holds all Command in a `Base*` array.<br>
+The public variable `b` will point to the root node.<br>
+The overall structure will be a binary tree with leaves being Command, and it will be executed using inorder traversal.
+
 ## Command
-The actual command string itself, such as "ls" or "cat".
+The actual command string itself, such as "ls" or "cat". <br>
+This class has a `char**` which contains the command argument, and it will be populated by a `vector<string>`
 > Note: only commands under /bin is available in this version of shell.
 
 
