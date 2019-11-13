@@ -35,6 +35,7 @@
 *.out
 *.app
 rshellexe
+rshell
 test
 
 # CMake Temp Files

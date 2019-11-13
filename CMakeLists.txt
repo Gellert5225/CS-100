@@ -8,7 +8,7 @@ file(GLOB TEST_SOURCES unit_test/unit_test.cpp)
 set(CMAKE_CXX_STANDARD 11)
 set(EXECUTABLE_OUTPUT_PATH ./)
 
-add_executable(rshellexe
+add_executable(rshell
     ${SOURCES}
 )
 
