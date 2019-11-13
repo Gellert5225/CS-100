@@ -11,14 +11,11 @@ public:
     ~CommandLine();
 
     std::vector<Base*> getCommands() const;
-    void pushCommand(Base* c);
 
     bool execute();
     std::string toString();
 
     Base* b;
-private:
-    std::vector<Base*> commands;
 };
 
 #endif

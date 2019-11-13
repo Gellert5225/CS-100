@@ -7,9 +7,6 @@ CommandLine::CommandLine(std::string& input) {
     
 }
 
-void CommandLine::pushCommand(Base* c) {
-    commands.push_back(c);
-}
 
 std::vector<Base*> CommandLine::getCommands() const {
     return {};

@@ -18,32 +18,20 @@
 void parse(const std::string &cmdLine, CommandLine &result);
 
 int main(int argc, char** argv) {
-    std::string cmd = "echo true || ech wrong && echo yeah";
-    CommandLine cl;
+    char* userName = getlogin();
+    char hostName[256] = "/0";
+    gethostname(hostName, 256);
 
-    /*
-    std::vector<std::string> v1 = {"left"};
-    std::vector<std::string> v2 = {"right"};
-    Command* cmdLeft = new Command(1);
-    Command* cmdRight = new Command(1);
-    cmdLeft->setArgs(v1);
-    cmdRight->setArgs(v2);
+    while (true) {
+        std::cout << userName << "@" << hostName << "$ ";
 
-    Connector* c = new Semicolon();
-    c->setLeft(cmdLeft);
-    c->setRight(cmdRight);
+        std::string cmd = "";
+        std::getline(std::cin, cmd);
+        CommandLine cl;
 
-    Base* root = c;
-    */
-    parse(cmd, cl);
-
-    //std::cout << reinterpret_cast<Connector*>(cl.b)->getLeft()->toString() << std::endl;
-    //std::cout << reinterpret_cast<Connector*>(cl.b)->getRight()->toString() << std::endl;
-
-    //reinterpret_cast<Connector*>(cl.b)->getLeft()->execute();
-    //reinterpret_cast<Connector*>(cl.b)->getRight()->execute();
-
-    reinterpret_cast<Connector*>(cl.b)->execute();
+        parse(cmd, cl);
+        reinterpret_cast<Connector*>(cl.b)->execute();
+    }
 
     return 0;
 }
@@ -53,7 +41,7 @@ void parse(const std::string &cmdLine, CommandLine &result) {
 
     std::vector<std::string> buffer;
     std::string arg;
-    Base* root;
+    Base* root = nullptr;
     Connector* c;
 
     while (iss >> arg) {
@@ -105,5 +93,6 @@ void parse(const std::string &cmdLine, CommandLine &result) {
         
     }
 
+    if (root == nullptr) root = new Semicolon();
     result.b = root;
 }

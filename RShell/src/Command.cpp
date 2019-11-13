@@ -8,6 +8,7 @@
 #include <time.h>
 #include <errno.h>
 #include <string.h>
+#include <signal.h>
 
 #include <iostream>
 
@@ -37,6 +38,8 @@ bool Command::execute() {
     pid_t childId, endId;
     time_t when;
 
+    if (strcmp(args[0], "exit") == 0) exit(EXIT_SUCCESS);
+
     if ((childId = fork()) == -1) {
         perror("fork() error");
         exit(EXIT_FAILURE);
@@ -44,18 +47,15 @@ bool Command::execute() {
         time(&when);
         //printf("child process %d started at    %s", getpid(), ctime(&when));
 
-        //printf("RETURN STATUS: %i\n", execvp(args[0], (char* const*)args));
         if (execvp(args[0], (char* const*)args) < 0) {
             printf("Error executing command \"%s\", %s\n", this->toString().c_str(), strerror(errno));
             exit(errno);
         }
-
-        exit(EXIT_SUCCESS);
+        //exit(EXIT_SUCCESS);
     } else { // parent process
         time(&when);
         //printf("parent process %d started at %s", getpid(), ctime(&when));
-        endId = waitpid(childId, &status, WNOHANG|WUNTRACED);
-        //printf("%i\n", endId);
+        endId = waitpid(childId, &status, 0);
         if (endId == -1) {
             perror("waitpid() error");
             exit(EXIT_FAILURE);
@@ -64,16 +64,15 @@ bool Command::execute() {
             //printf("parent waiting for child %d at %s", childId, ctime(&when));
         } else if (endId == childId) {
             if (WIFEXITED(status)) {
-                printf("child ended with %d\n", WEXITSTATUS(status));
+                //printf("child ended with %d\n", WEXITSTATUS(status));
             } else if (WIFSIGNALED(status)) {
                 printf("child ended because of an uncaught signal\n");
             } else if (WIFSTOPPED(status)) {
                 printf("child process has stopped\n");
             } 
-            //exit(EXIT_SUCCESS);
+            kill(childId, SIGKILL);
         }
-    }
-
+    } 
     return WEXITSTATUS(status) == 0;
 }
 

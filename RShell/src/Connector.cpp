@@ -1,6 +1,9 @@
 #include "../includes/Connector.hpp"
 
-Connector::Connector() {}
+Connector::Connector() {
+    left = nullptr;
+    right = nullptr;
+}
 
 Connector::~Connector() {}
 
