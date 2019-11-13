@@ -7,10 +7,7 @@
 class CommandLine : public Base {
 public:
     CommandLine();
-    CommandLine(std::string&);
     ~CommandLine();
-
-    std::vector<Base*> getCommands() const;
 
     bool execute();
     std::string toString();

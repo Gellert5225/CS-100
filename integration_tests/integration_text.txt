@@ -1,6 +1,6 @@
-Testing Exit commands...
+Testing single command...
 
-TEST_1: echo hello; exit
+TEST_1: echo hello
  	
  	----Expected----
 hello
@@ -8,14 +8,21 @@ hello
 hello
 
 
-TEST_2: exit; echo hello; ls -a # echo whoa
+TEST_2: ls -a
  	
  	----Expected----
+.
+..
+commented_command_tests.sh
+exit_command_tests.sh
+integration_text.txt
+multiple_commands_tests.sh
+single_command_tests.sh
  	----Actual----
-
-
-TEST_3: exit && echo hello; ls -a # echo whoa
- 	
- 	----Expected----
- 	----Actual----
-gellert@gellert-ubuntu$ 
+.
+..
+commented_command_tests.sh
+exit_command_tests.sh
+integration_text.txt
+multiple_commands_tests.sh
+single_command_tests.sh

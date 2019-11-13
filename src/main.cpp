@@ -21,7 +21,7 @@ void integration_test(int argc, char** argv);
 
 int main(int argc, char** argv) {
     // for integration test only
-    if (strcmp(argv[1], "integration_test") == 0) {
+    if (argc > 1 && strcmp(argv[1], "integration_test") == 0) {
         integration_test(argc, argv);
         return 0;
     }
@@ -36,7 +36,6 @@ int main(int argc, char** argv) {
         std::string cmd = "";
         std::getline(std::cin, cmd);
         CommandLine cl;
-
         parse(cmd, cl);
         reinterpret_cast<Connector*>(cl.b)->execute();
     }

@@ -1,20 +1,13 @@
 #include "CommandLine.hpp"
 
-CommandLine::CommandLine() {}
+CommandLine::CommandLine():Base() {
+    b = nullptr;
+}
 CommandLine::~CommandLine() {}
 
-CommandLine::CommandLine(std::string& input) {
-    
-}
-
-
-std::vector<Base*> CommandLine::getCommands() const {
-    return {};
-}
-
 bool CommandLine::execute() {
-    return false;
+    return b->execute();
 }
 std::string CommandLine::toString() {
-    return "";
+    return b->toString();
 }
