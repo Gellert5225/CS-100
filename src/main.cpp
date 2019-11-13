@@ -81,7 +81,7 @@ void parse(const std::string &cmdLine, CommandLine &result) {
             Command *cmd = new Command(buffer.size());
             std::vector<std::string> *cp = new std::vector<std::string>();
             *cp = buffer;
-            cmd->setArgs(cp);
+            cmd->populate(cp);
             buffer.clear();
 
             if (root == nullptr) {

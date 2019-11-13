@@ -25,7 +25,7 @@ Command::~Command() {
     std::cout << "cmd deleted" << std::endl;
 }
 
-void Command::setArgs(const std::vector<std::string>* v) {
+void Command::populate(const std::vector<std::string>* v) {
     for (int i = 0; i < v->size(); i++) {
         this->args[i] = (*v)[i].c_str();
     }
@@ -78,10 +78,11 @@ bool Command::execute() {
 
 std::string Command::toString() {
     std::string result;
-    for (int i =0; i < size; i++) {
+    for (int i = 0; i < size; i++) {
         std::string str(this->args[i]);
         result += str;
         result += " ";
     }
+    result.pop_back();
     return result;
 }

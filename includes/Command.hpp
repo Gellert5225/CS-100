@@ -9,7 +9,7 @@ public:
     Command(int size);
     ~Command();
 
-    void setArgs(const std::vector<std::string>* v);
+    void populate(const std::vector<std::string>* v);
     
     bool execute();
     virtual std::string toString();
