@@ -34,9 +34,11 @@
 *.exe
 *.out
 *.app
+rshellexe
+test
 
 # CMake Temp Files
 CMakeCache.txt
 CMakeFiles/
 cmake_install.cmake
-MakeFile
+Makefile
