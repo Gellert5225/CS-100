@@ -1,6 +1,8 @@
 #!/bin/bash
 exec > >(tee "./integration_text.txt")
 
+echo -e TEST RESULTS ARE FORWARDED INTO integration_test.txt '\n\n'
+
 echo -e Testing commented commands...'\n'
 echo TEST_1: "echo hello; invalid_command haha # echo thisshouldprint"
 echo -e ' \t' 
