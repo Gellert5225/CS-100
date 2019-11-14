@@ -11,7 +11,7 @@ echo -e ' \t'----Expected----
 eval $cmd
 
 echo -e ' \t'----Actual----
-../rshellexe "integration_test" "echo hello"
+../rshell "integration_test" "echo hello"
 
 echo -e '\n'
 echo TEST_2: "ls -a"
@@ -22,4 +22,4 @@ echo -e ' \t'----Expected----
 eval $cmd
 
 echo -e ' \t'----Actual----
-../rshellexe "integration_test" "ls -a"
+../rshell "integration_test" "ls -a"
