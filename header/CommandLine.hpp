@@ -2,6 +2,7 @@
 #define __COMMANDLINE_HPP__
 
 #include "Base.hpp"
+#include "Connector.hpp"
 #include <vector>
 
 class CommandLine : public Base {

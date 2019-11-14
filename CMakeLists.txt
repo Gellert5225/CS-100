@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 
 add_subdirectory(vendor/googletest)
-include_directories(includes)
+include_directories(header)
 file(GLOB SOURCES src/*.cpp)
 file(GLOB TEST_SOURCES unit_tests/unit_test.cpp src/Command.cpp src/CommandLine.cpp src/Connector.cpp src/AndOrSemicolon.cpp)
 

@@ -37,7 +37,7 @@ int main(int argc, char** argv) {
         std::getline(std::cin, cmd);
         CommandLine cl;
         parse(cmd, cl);
-        reinterpret_cast<Connector*>(cl.b)->execute();
+        cl.execute();
     }
     
     return 0;

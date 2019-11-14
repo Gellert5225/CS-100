@@ -1,4 +1,4 @@
-#include "../includes/Connector.hpp"
+#include "../header/Connector.hpp"
 
 Connector::Connector() {
     left = nullptr;

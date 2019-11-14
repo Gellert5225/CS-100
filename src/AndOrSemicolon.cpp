@@ -1,4 +1,4 @@
-#include "../includes/AndOrSemicolon.hpp"
+#include "AndOrSemicolon.hpp"
 #include <iostream>
 
 // Semicolon
