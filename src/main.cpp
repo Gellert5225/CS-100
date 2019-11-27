@@ -14,6 +14,9 @@
 #include "CommandLine.hpp"
 #include "Command.hpp"
 #include "AndOrSemicolon.hpp"
+#include "ParseFactory.hpp"
+#include "ParseTestCommand.hpp"
+#include "ParsePrecedence.hpp"
 
 void parse(const std::string &cmdLine, CommandLine &result);
 
@@ -48,9 +51,14 @@ void parse(const std::string &cmdLine, CommandLine &result) {
 
     std::vector<std::string> buffer;
     std::string arg;
+
     Base* root = nullptr;
+    Base* left = nullptr;
+    Base* right = nullptr;
+
     Connector* c;
     bool commented = false;
+    ParseFactory* parseFactory;
 
     while (iss >> arg) {
         if (commented) break;
@@ -60,6 +68,17 @@ void parse(const std::string &cmdLine, CommandLine &result) {
         if (arg.front() == '#') {
             endOfCmd = true;
             commented = true;
+        } else if (arg.front() == '[' || arg == "test") {
+            // test commands
+            printf("This is a test command\n");
+            std::string testCmds = "";
+            while (arg != "]" && iss >> arg) {
+                if (arg != "]") testCmds += arg + " ";
+            }
+
+            printf("%s\n", testCmds.c_str());
+            parseFactory = new ParseTestCommand();
+            parseFactory->parse(testCmds);
         } else if (arg == "||") {
             c = new Or();
             endOfCmd = true;
