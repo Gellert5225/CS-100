@@ -8,7 +8,6 @@ public:
     TestCommand(int size);
 
     bool execute();
-
 };
 
 #endif

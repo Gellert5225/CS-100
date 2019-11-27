@@ -53,12 +53,15 @@ void parse(const std::string &cmdLine, CommandLine &result) {
     std::string arg;
 
     Base* root = nullptr;
-    Base* left = nullptr;
-    Base* right = nullptr;
+    Base* parsedResult = nullptr;
 
     Connector* c;
     bool commented = false;
     ParseFactory* parseFactory;
+
+    std::string regCmds = "";
+    std::string testCmds = "";
+    bool isTestCmd = false;
 
     while (iss >> arg) {
         if (commented) break;
@@ -70,15 +73,10 @@ void parse(const std::string &cmdLine, CommandLine &result) {
             commented = true;
         } else if (arg.front() == '[' || arg == "test") {
             // test commands
-            printf("This is a test command\n");
-            std::string testCmds = "";
+            isTestCmd = true;
             while (arg != "]" && iss >> arg) {
                 if (arg != "]") testCmds += arg + " ";
             }
-
-            printf("%s\n", testCmds.c_str());
-            parseFactory = new ParseTestCommand();
-            parseFactory->parse(testCmds);
         } else if (arg == "||") {
             c = new Or();
             endOfCmd = true;
@@ -91,32 +89,36 @@ void parse(const std::string &cmdLine, CommandLine &result) {
                 endOfCmd = true;
                 c = new Semicolon();
             }
-            buffer.push_back(arg);
+            regCmds += arg + " ";
         }
 
         if (iss.eof()) {endOfCmd = true;}
 
-        if (endOfCmd && buffer.size() != 0) {
-            Command *cmd = new Command(buffer.size());
-            std::vector<std::string> *cp = new std::vector<std::string>();
-            *cp = buffer;
-            cmd->populate(cp);
-            buffer.clear();
-
+        if (endOfCmd) {
+            if (isTestCmd) {
+                parseFactory = new ParseTestCommand();
+                parsedResult = parseFactory->parse(testCmds);
+                testCmds = "";
+                isTestCmd = false;
+            } else {
+                parseFactory = new ParsePrecedence();
+                parsedResult = parseFactory->parse(regCmds);
+                regCmds = "";
+            }
             if (root == nullptr) {
-                if (c == nullptr) root = cmd;
+                if (c == nullptr) root = parsedResult;
                 else {
                     root = c;
-                    c->setLeft(cmd);
+                    c->setLeft(parsedResult);
                 }
             } else {
                 if (c != nullptr) {
                     Base* temp = root;
                     c->setLeft(temp);
-                    reinterpret_cast<Connector*>(temp)->setRight(cmd);
+                    reinterpret_cast<Connector*>(temp)->setRight(parsedResult);
                     root = c;
                 } else {
-                    reinterpret_cast<Connector*>(root)->setRight(cmd);
+                    reinterpret_cast<Connector*>(root)->setRight(parsedResult);
                 }
             }
         }

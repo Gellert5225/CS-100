@@ -9,14 +9,18 @@ ParseTestCommand::ParseTestCommand(): ParseFactory() {}
 Base* ParseTestCommand::parse(std::string& line) {
     std::istringstream iss(line);
     std::string temp;
-    std::vector<std::string>* buffer = new std::vector<std::string>();
+    std::vector<std::string> buffer;
 
     while (iss >> temp) {
-        buffer->push_back(temp);
+        buffer.push_back(temp);
     }
     
-    TestCommand* tc = new TestCommand(buffer->size());
-    tc->populate(buffer);
+    std::vector<std::string> *cp = new std::vector<std::string>();
+    *cp = buffer;
+    TestCommand* tc = new TestCommand(buffer.size());
+    tc->populate(cp);
+
+    //tc->execute();
 
     return tc;
 }
