@@ -14,6 +14,7 @@
 ParsePrecedence::ParsePrecedence(): ParseFactory() {}
 
 Base* ParsePrecedence::parse(std::string& line) {
+    printf("%s\n", line.c_str());
     if (line.front() != '(') {
         line = ("(" + line + ")");
     }
@@ -35,6 +36,10 @@ Base* ParsePrecedence::parse(std::string& line) {
         if (temp.front() == '(') {
             temp = temp.substr(1, temp.size() - 1);
             while (temp.back() != ')' && temp.back() != ';' && temp != "&&" && temp != "||") {
+                if (temp.back() == ';') {
+                    temp = temp.substr(0, temp.size() - 1);
+                    connector = new Semicolon();
+                }
                 buffer.push_back(temp);
                 iss >> temp;
             }
@@ -91,12 +96,17 @@ Base* ParsePrecedence::parse(std::string& line) {
                 rootStack.pop();
             }
         } else {
-            while (temp.back() != ')' && temp.back() != ';' && temp != "&&" && temp != "||") {
-                buffer.push_back(temp);
-                iss >> temp;
+            if (temp.back() == ';') {
+                temp = temp.substr(0, temp.size() - 1);
+                connector = new Semicolon();
+            } else {
+                while (temp.back() != ')' && temp.back() != ';' && temp != "&&" && temp != "||") {
+                    buffer.push_back(temp);
+                    iss >> temp;
+                }
+                if (temp.back() == ')') temp = temp.substr(0, temp.size() - 1);
+                if (temp == "&&" || temp == "||") no_read = true;
             }
-            if (temp.back() == ')') temp = temp.substr(0, temp.size() - 1);
-            if (temp == "&&" || temp == "||") no_read = true;
             buffer.push_back(temp);
             std::vector<std::string> *cp = new std::vector<std::string>();
             *cp = buffer;

@@ -38,6 +38,10 @@ The actual command string itself, such as "ls" or "cat". <br>
 This class has a `char**` which contains the command argument, and it will be populated by a `vector<string>`
 > Note: only commands under /bin is available in this version of shell.
 
+## ParseFactory
+An abstract factory base class for parsing usre input into either a regular command such as 'ls -a'<br>
+or to a test command such as '[ -e /path/to/file ]'
+
 
 # Prototype/Research
 Since the shell program constantly involves user input, we don't want to block the main thread while waiting for user input, or waiting for some commands finishing execution. <br>

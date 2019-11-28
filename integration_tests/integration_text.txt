@@ -1,9 +1,9 @@
 TEST RESULTS ARE FORWARDED INTO integration_test.txt 
 
 
-Testing Symbolic Test Commands...
+Testing Precedence Commands...
 
-TEST_1: [ -e test_literal_tests.sh ] && echo file exists || echo file does not exist
+TEST_1: echo file exists || echo file does not exist
  	
  	----Expected----
 file exists
@@ -11,25 +11,30 @@ file exists
 file exists
 
 
-TEST_2: [ -e haha.sh ] && echo file exists || echo file does not exist
- 	
- 	----Expected----
-file does not exist
- 	----Actual----
-file does not exist
-
-
-TEST_3: [ -f ../README.md ] && echo file exists || echo file does not exist
+TEST_2: (echo file exists || echo file does not exist)
  	
  	----Expected----
 file exists
  	----Actual----
-file exists
+file exists ||
 
 
-TEST_4: [ -d ../unit_tests/ ] && echo dir exists || echo dir does not exist
+TEST_3: (echo A && echo B) || (echo C && echo D)
  	
  	----Expected----
-dir exists
+A
+B
  	----Actual----
-dir exists
+A &&
+B
+
+
+TEST_4: (echo A && echo B) || (echo C && echo D) && (ech dd)
+ 	
+ 	----Expected----
+A
+B
+ 	----Actual----
+A &&
+B
+Error executing command "ech dd", No such file or directory

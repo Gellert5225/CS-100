@@ -62,10 +62,11 @@ void parse(const std::string &cmdLine, CommandLine &result) {
     std::string regCmds = "";
     std::string testCmds = "";
     bool isTestCmd = false;
-
+    bool no_read = false;
     int numLeft = 0;
 
-    while (iss >> arg) {
+    while (no_read || iss >> arg) {
+        no_read = false;
         if (commented) break;
         bool endOfCmd = false;
         c = nullptr;
@@ -76,8 +77,15 @@ void parse(const std::string &cmdLine, CommandLine &result) {
         } else if (arg.front() == '[' || arg == "test") {
             // test commands
             isTestCmd = true;
-            while (arg != "]" && iss >> arg) {
-                if (arg != "]") testCmds += arg + " ";
+            if (arg.front() == '[') {
+                while (arg != "]" && iss >> arg) {
+                    if (arg != "]") testCmds += arg + " ";
+                }
+            } else  {
+                while (arg != "&&" && arg != "||" && arg.back() != ';' && iss >> arg) {
+                    testCmds += arg + " ";
+                }
+                if (arg == "&&" || arg == "||") no_read = true;
             }
         } else if (arg.front() == '(') {
             numLeft++;
