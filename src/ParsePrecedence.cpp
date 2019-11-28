@@ -14,7 +14,6 @@
 ParsePrecedence::ParsePrecedence(): ParseFactory() {}
 
 Base* ParsePrecedence::parse(std::string& line) {
-    printf("%s\n", line.c_str());
     if (line.front() != '(') {
         line = ("(" + line + ")");
     }
