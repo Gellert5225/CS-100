@@ -20,7 +20,7 @@ Base* ParseTestCommand::parse(std::string& line) {
     TestCommand* tc = new TestCommand(buffer.size());
     tc->populate(cp);
 
-    //tc->execute();
+    tc->execute();
 
     return tc;
 }

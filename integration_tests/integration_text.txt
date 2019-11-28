@@ -1,28 +1,35 @@
-Testing single command...
+TEST RESULTS ARE FORWARDED INTO integration_test.txt 
 
-TEST_1: echo hello
+
+Testing Symbolic Test Commands...
+
+TEST_1: [ -e test_literal_tests.sh ] && echo file exists || echo file does not exist
  	
  	----Expected----
-hello
+file exists
  	----Actual----
-hello
+file exists
 
 
-TEST_2: ls -a
+TEST_2: [ -e haha.sh ] && echo file exists || echo file does not exist
  	
  	----Expected----
-.
-..
-commented_command_tests.sh
-exit_command_tests.sh
-integration_text.txt
-multiple_commands_tests.sh
-single_command_tests.sh
+file does not exist
  	----Actual----
-.
-..
-commented_command_tests.sh
-exit_command_tests.sh
-integration_text.txt
-multiple_commands_tests.sh
-single_command_tests.sh
+file does not exist
+
+
+TEST_3: [ -f ../README.md ] && echo file exists || echo file does not exist
+ 	
+ 	----Expected----
+file exists
+ 	----Actual----
+file exists
+
+
+TEST_4: [ -d ../unit_tests/ ] && echo dir exists || echo dir does not exist
+ 	
+ 	----Expected----
+dir exists
+ 	----Actual----
+dir exists

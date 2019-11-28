@@ -63,6 +63,8 @@ void parse(const std::string &cmdLine, CommandLine &result) {
     std::string testCmds = "";
     bool isTestCmd = false;
 
+    int numLeft = 0;
+
     while (iss >> arg) {
         if (commented) break;
         bool endOfCmd = false;
@@ -76,6 +78,14 @@ void parse(const std::string &cmdLine, CommandLine &result) {
             isTestCmd = true;
             while (arg != "]" && iss >> arg) {
                 if (arg != "]") testCmds += arg + " ";
+            }
+        } else if (arg.front() == '(') {
+            numLeft++;
+            regCmds += arg + " ";
+            while (numLeft != 0 && iss >> arg) {
+                if (arg.front() == '(') numLeft++;
+                if (arg.back() == ')') numLeft--;
+                regCmds += arg + " ";
             }
         } else if (arg == "||") {
             c = new Or();
@@ -102,6 +112,7 @@ void parse(const std::string &cmdLine, CommandLine &result) {
                 isTestCmd = false;
             } else {
                 parseFactory = new ParsePrecedence();
+                regCmds.pop_back();
                 parsedResult = parseFactory->parse(regCmds);
                 regCmds = "";
             }
@@ -124,7 +135,6 @@ void parse(const std::string &cmdLine, CommandLine &result) {
         }
         
     }
-
     if (root == nullptr) root = new Semicolon();
     result.b = root;
 }

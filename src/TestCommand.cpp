@@ -20,7 +20,6 @@ bool TestCommand::execute() {
         return S_ISREG(buf.st_mode);
     }
     if (strcmp(args[0], "-d") == 0) {
-        //printf("checking -d\n");
         return S_ISDIR(buf.st_mode);
     }
 
