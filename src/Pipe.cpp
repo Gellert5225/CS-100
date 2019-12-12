@@ -9,16 +9,24 @@
 #include <cstring>
 
 Pipe::Pipe()
-:Connector() {
-    output = "";
+:Redirection() {
+    if (dynamic_cast<Redirection*>(left) != nullptr) {
+        input = strdup(dynamic_cast<Redirection*>(left)->getOutput().c_str());
+    } else {
+        input = new char[2];
+    }
 }
 
 Pipe::~Pipe() {
+    delete [] input;
+    input = nullptr;
 }
 
 bool Pipe::execute() {
-    char* inbuf;
-    int pipe_fd[2], pid, status, endId;
+    left->execute();
+    input = strdup(dynamic_cast<Redirection*>(left)->getOutput().c_str());
+    char inbuf[1024];
+    int pipe_fd[2], pipe_fd_1[2], pid, status, endId;
 
     if (pipe(pipe_fd) < 0) {
         perror("pipe");
@@ -26,13 +34,24 @@ bool Pipe::execute() {
         exit(EXIT_FAILURE);
     }
 
+    if (pipe(pipe_fd_1) < 0) {
+        perror("pipe");
+        return false;
+        exit(EXIT_FAILURE);
+    }
+
     if ((pid = fork()) > 0) { 
-        close(pipe_fd[0]);
-        write(pipe_fd[1], right->toString().c_str(), strlen(right->toString().c_str())); 
+        close(pipe_fd[0]); 
+        close(pipe_fd_1[1]); 
 
-        close(pipe_fd[1]); 
+        printf("input is %i\n", strlen(input));
+        write(pipe_fd[1], input, strlen(input));
+        close(pipe_fd[1]);
 
-        read(pipe_fd[0], inbuf, strlen(right->toString().c_str()));
+        printf("read stat: %i\n", read(pipe_fd_1[0], inbuf, sizeof(inbuf)));
+        //close(pipe_fd_1[1]);
+        printf("inbuf is %s\n", inbuf);
+
         endId = waitpid(pid, &status, 0);
         if (endId == -1) {
             perror("waitpid() error");
@@ -50,16 +69,19 @@ bool Pipe::execute() {
             kill(pid, SIGKILL);
         }
     } else { 
-        close(pipe_fd[1]); 
+        close(pipe_fd[1]);
+        close(pipe_fd_1[0]);
         dup2(pipe_fd[0], 0);
-        dup2(pipe_fd[1], 1);
+        dup2(pipe_fd_1[1], 1);
+        close(pipe_fd[0]);
+        close(pipe_fd_1[1]);
 
-        std::vector<std::string> v = convert(left);
+        std::vector<std::string> v = convert(right);
+        //printf("right is %s\n", right->toString().c_str());
         char* cmd[v.size() + 1];
         for (int i = 0; i < v.size(); i++) {
             cmd[i] = const_cast<char*>(v.at(i).c_str());
         }
-
         cmd[v.size()] = 0;
         if (execvp(cmd[0], cmd) < 0) {
             printf("Error executing command, %s\n", strerror(errno));
@@ -72,4 +94,18 @@ bool Pipe::execute() {
 
 std::string Pipe::toString() {
     return "|";
+}
+
+char* Pipe::getInput() {
+    return input;
+}
+std::string Pipe::getOutput() {
+    return std::string(output);
+}
+
+void Pipe::setInput(char* c) {
+    input = c;
+}
+void Pipe::setOutput(char* c) {
+    output = c;
 }

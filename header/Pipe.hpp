@@ -1,10 +1,10 @@
 #ifndef __PIPE_HPP__
 #define __PIPE_HPP__
 
-#include "Connector.hpp"
+#include "Redirection.hpp"
 #include "Command.hpp"
 
-class Pipe : public Connector {
+class Pipe : public Redirection {
 public:
     Pipe();
     ~Pipe();
@@ -12,7 +12,11 @@ public:
     bool execute();
     std::string toString();
 
-    const char* output;
+    char* getInput();
+    std::string getOutput();
+
+    void setInput(char*);
+    void setOutput(char*);
 };
 
 #endif

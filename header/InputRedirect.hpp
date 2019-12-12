@@ -1,9 +1,9 @@
 #ifndef __INPUT_REDIRECT_HPP__
 #define __INPUT_REDIRECT_HPP__
 
-#include "Connector.hpp"
+#include "Redirection.hpp"
 
-class InputRedirect: public Connector {
+class InputRedirect: public Redirection {
 public:
     InputRedirect();
     ~InputRedirect();
@@ -11,7 +11,11 @@ public:
     bool execute();
     std::string toString();
 
-    const char* output;
+    char* getInput();
+    std::string getOutput();
+
+    void setInput(char*);
+    void setOutput(char*);
 };
 
 #endif
