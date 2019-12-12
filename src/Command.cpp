@@ -22,7 +22,6 @@ Command::~Command() {
         delete[] args[i];
         args[i] = nullptr;
     }
-    std::cout << "cmd deleted" << std::endl;
 }
 
 void Command::populate(const std::vector<std::string>* v) {

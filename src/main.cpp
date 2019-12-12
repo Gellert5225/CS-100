@@ -6,6 +6,7 @@
 #include <time.h>
 #include <errno.h>
 #include <string.h>
+#include <stdio.h>
 
 #include <sstream>
 #include <iostream>
@@ -17,6 +18,8 @@
 #include "ParseFactory.hpp"
 #include "ParseTestCommand.hpp"
 #include "ParsePrecedence.hpp"
+#include "InputRedirect.hpp"
+#include "Pipe.hpp"
 
 void parse(const std::string &cmdLine, CommandLine &result);
 
@@ -69,7 +72,6 @@ void parse(const std::string &cmdLine, CommandLine &result) {
         no_read = false;
         if (commented) break;
         bool endOfCmd = false;
-        c = nullptr;
 
         if (arg.front() == '#') {
             endOfCmd = true;
@@ -95,6 +97,13 @@ void parse(const std::string &cmdLine, CommandLine &result) {
                 if (arg.back() == ')') numLeft--;
                 regCmds += arg + " ";
             }
+        } else if (arg == "|") { // new pipe
+            c = new Pipe();
+            endOfCmd = true;
+        } else if (arg == "<") { // input redir
+            printf("input redir\n");
+            c = new InputRedirect();
+            endOfCmd = true;
         } else if (arg == "||") {
             c = new Or();
             endOfCmd = true;
@@ -122,18 +131,19 @@ void parse(const std::string &cmdLine, CommandLine &result) {
                 parseFactory = new ParsePrecedence();
                 regCmds.pop_back();
                 parsedResult = parseFactory->parse(regCmds);
+                printf("regCmds is %s\n", parsedResult->toString().c_str());
                 regCmds = "";
             }
             if (root == nullptr) {
                 if (c == nullptr) root = parsedResult;
                 else {
                     root = c;
-                    c->setLeft(parsedResult);
+                    reinterpret_cast<Connector*>(c)->setLeft(parsedResult);
                 }
             } else {
                 if (c != nullptr) {
                     Base* temp = root;
-                    c->setLeft(temp);
+                    reinterpret_cast<Connector*>(c)->setLeft(temp);
                     reinterpret_cast<Connector*>(temp)->setRight(parsedResult);
                     root = c;
                 } else {
@@ -141,6 +151,7 @@ void parse(const std::string &cmdLine, CommandLine &result) {
                 }
             }
         }
+        c = nullptr;
         
     }
     if (root == nullptr) root = new Semicolon();
