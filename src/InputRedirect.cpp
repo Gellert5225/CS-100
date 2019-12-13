@@ -28,7 +28,8 @@ bool InputRedirect::execute() {
 
     int in = open(right->toString().c_str(), O_RDONLY); 
     if (in < 0) { 
-        printf("error opening"); 
+        printf("error opening %s\n", right->toString().c_str()); 
+        return false;
         exit(-1); 
     }
 

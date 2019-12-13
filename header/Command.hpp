@@ -13,9 +13,12 @@ public:
     
     bool execute();
     virtual std::string toString();
+    
+    char* getOutput();
 private:
     int size;
     const char** args;
+    char* output;
 };
 
 #endif

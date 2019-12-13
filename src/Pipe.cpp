@@ -23,8 +23,10 @@ Pipe::~Pipe() {
 }
 
 bool Pipe::execute() {
-    left->execute();
-    input = strdup(dynamic_cast<Redirection*>(left)->getOutput());
+    if (!left->execute()) return false;
+    if (dynamic_cast<Redirection*>(left) == nullptr) input = strdup(dynamic_cast<Command*>(left)->getOutput());
+    else input = strdup(dynamic_cast<Redirection*>(left)->getOutput());
+    
     char inbuf[1024];
     int pipe_fd[2], pipe_fd_1[2], pid, status, endId;
 
@@ -52,7 +54,7 @@ bool Pipe::execute() {
         char actual[size + 1];
         strcpy(actual, inbuf);
         actual[size] = '\0';
-        printf("inbuf is %s\n", actual);
+        //printf("inbuf is %s\n", actual);
         output = actual;
 
         endId = waitpid(pid, &status, 0);
@@ -96,7 +98,7 @@ bool Pipe::execute() {
 }
 
 std::string Pipe::toString() {
-    return "|";
+    return left->toString() + " | " + right->toString();
 }
 
 char* Pipe::getInput() {

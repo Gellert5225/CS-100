@@ -33,9 +33,16 @@ void Command::populate(const std::vector<std::string>* v) {
 }
 
 bool Command::execute() {
-    int i, status;
+    int pipe_fd_1[2], i, status;
     pid_t childId, endId;
     time_t when;
+    char inbuf[1024];
+
+    if (pipe(pipe_fd_1) < 0) {
+        perror("pipe");
+        return false;
+        exit(EXIT_FAILURE);
+    }
 
     if (strcmp(args[0], "exit") == 0) exit(EXIT_SUCCESS);
 
@@ -44,16 +51,29 @@ bool Command::execute() {
         exit(EXIT_FAILURE);
     } else if (childId == 0) { // child process
         time(&when);
-        //printf("child process %d started at    %s", getpid(), ctime(&when));
+        close(pipe_fd_1[0]);
+        int cp = dup(1);
+        dup2(pipe_fd_1[1], 1);
+        close(pipe_fd_1[1]);
 
         if (execvp(args[0], (char* const*)args) < 0) {
+            dup2(cp, 1);
             printf("Error executing command \"%s\", %s\n", this->toString().c_str(), strerror(errno));
             exit(errno);
         }
         //exit(EXIT_SUCCESS);
     } else { // parent process
         time(&when);
-        //printf("parent process %d started at %s", getpid(), ctime(&when));
+        close(pipe_fd_1[1]); 
+        int size = read(pipe_fd_1[0], inbuf, sizeof(inbuf));
+        if (size != 0) {
+            char actual[size + 1];
+            strcpy(actual, inbuf);
+            actual[size] = '\0';
+            //printf("inbuf of command is %s\n", actual);
+            output = actual;
+        }
+        
         endId = waitpid(childId, &status, 0);
         if (endId == -1) {
             perror("waitpid() error");
@@ -84,4 +104,8 @@ std::string Command::toString() {
     }
     result.pop_back();
     return result;
+}
+
+char* Command::getOutput() {
+    return output;
 }

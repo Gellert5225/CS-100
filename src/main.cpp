@@ -102,11 +102,13 @@ void parse(const std::string &cmdLine, CommandLine &result) {
             c = new Pipe();
             endOfCmd = true;
         } else if (arg == "<") { // input redir
-            printf("input redir\n");
             c = new InputRedirect();
             endOfCmd = true;
         } else if (arg == ">") {
-            c = new OutputRedirect();
+            c = new OutputRedirect(false);
+            endOfCmd = true;
+        } else if (arg == ">>") {
+            c = new OutputRedirect(true);
             endOfCmd = true;
         } else if (arg == "||") {
             c = new Or();
@@ -135,7 +137,6 @@ void parse(const std::string &cmdLine, CommandLine &result) {
                 parseFactory = new ParsePrecedence();
                 regCmds.pop_back();
                 parsedResult = parseFactory->parse(regCmds);
-                printf("regCmds is %s\n", parsedResult->toString().c_str());
                 regCmds = "";
             }
             if (root == nullptr) {

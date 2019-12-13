@@ -5,7 +5,7 @@
 
 class OutputRedirect: public Redirection {
 public:
-    OutputRedirect();
+    OutputRedirect(bool);
     ~OutputRedirect();
 
     bool execute();
@@ -16,6 +16,8 @@ public:
 
     void setInput(char*);
     void setOutput(char*);
+private: 
+    bool append;
 };
 
 #endif

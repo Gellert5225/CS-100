@@ -1,5 +1,6 @@
 #include "OutputRedirect.hpp"
 #include "helper.hpp"
+#include "Command.hpp"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -10,16 +11,17 @@
 #include <vector>
 #include <fstream>
 
-OutputRedirect::OutputRedirect()
+OutputRedirect::OutputRedirect(bool app)
 : Redirection() {
-    
+    append = app;
 }
 
 OutputRedirect::~OutputRedirect() {}
 
 bool OutputRedirect::execute() {
-    left->execute();
-    input = strdup(dynamic_cast<Redirection*>(left)->getOutput());
+    if (!left->execute()) return false;
+    if (dynamic_cast<Redirection*>(left) == nullptr) input = strdup(dynamic_cast<Command*>(left)->getOutput());
+    else input = strdup(dynamic_cast<Redirection*>(left)->getOutput());
     char inbuf[1024];
     int pipe_fd[2], pipe_fd_1[2], pid, status, endId;
 
@@ -45,7 +47,7 @@ bool OutputRedirect::execute() {
         close(pipe_fd[0]); 
         close(pipe_fd_1[1]); 
 
-        printf("input is %s\n", input);
+        //printf("input is %s\n", input);
         write(pipe_fd[1], input, strlen(input));
         close(pipe_fd[1]);
 
@@ -54,10 +56,12 @@ bool OutputRedirect::execute() {
         char actual[size + 1];
         strcpy(actual, inbuf);
         actual[size] = '\0';
-        printf("inbuf is %s\n", actual);
+        //printf("inbuf is %s\n", actual);
         output = actual;
 
-        std::ofstream myfile(right->toString().c_str());
+        std::ofstream myfile;
+        if (append) myfile.open(right->toString().c_str(), std::ios_base::app);
+        else myfile.open(right->toString().c_str());
         if (myfile.is_open()) {
             myfile << actual;
             myfile.close();

@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.8)
 add_subdirectory(vendor/googletest)
 include_directories(header)
 file(GLOB SOURCES src/*.cpp)
-file(GLOB TEST_SOURCES unit_tests/unit_test.cpp src/Command.cpp src/CommandLine.cpp src/Connector.cpp src/AndOrSemicolon.cpp)
+file(GLOB TEST_SOURCES unit_tests/unit_test.cpp src/Command.cpp src/CommandBase.cpp src/CommandLine.cpp src/Connector.cpp src/AndOrSemicolon.cpp src/helper.cpp src/InputRedirect.cpp src/OutputRedirect.cpp src/ParseFactory.cpp src/ParsePrecedence.cpp src/ParseTestCommand.cpp src/Pipe.cpp src/TestCommand.cpp)
 
 set(CMAKE_CXX_STANDARD 11)
 set(EXECUTABLE_OUTPUT_PATH ./)
