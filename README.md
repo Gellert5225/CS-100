@@ -42,6 +42,15 @@ This class has a `char**` which contains the command argument, and it will be po
 An abstract factory base class for parsing usre input into either a regular command such as 'ls -a'<br>
 or to a test command such as '[ -e /path/to/file ]'
 
+## InputRedirect
+Handling input redirect, using <. 
+
+## OutputRedirect
+Handling output redirect, using >. It has a flag stating whether user should replace or append the output.
+
+## Pipe
+Piping the output from previous command to the next command.
+
 
 # Prototype/Research
 Since the shell program constantly involves user input, we don't want to block the main thread while waiting for user input, or waiting for some commands finishing execution. <br>
