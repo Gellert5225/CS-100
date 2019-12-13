@@ -42,6 +42,7 @@ bool InputRedirect::execute() {
         strcpy(actual, inbuf);
         actual[size] = '\0';
         output = actual;
+        outString = std::string(output);
 
         endId = waitpid(pid, &status, 0);
         if (endId == -1) {
@@ -62,7 +63,7 @@ bool InputRedirect::execute() {
     } else { 
         dup2(in, 0);
         close(pipe_fd[0]);
-        dup2(pipe_fd[1], 1);
+        if (parent != nullptr) dup2(pipe_fd[1], 1);
         close(pipe_fd[1]);
 
         std::vector<std::string> v = convert(left);
@@ -98,4 +99,8 @@ void InputRedirect::setInput(char* c) {
 }
 void InputRedirect::setOutput(char* c) {
     output = c;
+}
+
+std::string InputRedirect::getOutputStr() {
+    return outString;
 }

@@ -20,8 +20,8 @@ OutputRedirect::~OutputRedirect() {}
 
 bool OutputRedirect::execute() {
     if (!left->execute()) return false;
-    if (dynamic_cast<Redirection*>(left) == nullptr) input = strdup(dynamic_cast<Command*>(left)->getOutput());
-    else input = strdup(dynamic_cast<Redirection*>(left)->getOutput());
+    if (dynamic_cast<Redirection*>(left) == nullptr) input = strdup(dynamic_cast<Command*>(left)->getOutputStr().c_str());
+    else input = strdup(dynamic_cast<Redirection*>(left)->getOutputStr().c_str());
     char inbuf[1024];
     int pipe_fd[2], pipe_fd_1[2], pid, status, endId;
 
@@ -58,6 +58,7 @@ bool OutputRedirect::execute() {
         actual[size] = '\0';
         //printf("inbuf is %s\n", actual);
         output = actual;
+        outString.assign(actual, size);
 
         std::ofstream myfile;
         if (append) myfile.open(right->toString().c_str(), std::ios_base::app);
@@ -125,4 +126,8 @@ void OutputRedirect::setInput(char* c) {
 }
 void OutputRedirect::setOutput(char* c) {
     output = c;
+}
+
+std::string OutputRedirect::getOutputStr() {
+    return outString;
 }

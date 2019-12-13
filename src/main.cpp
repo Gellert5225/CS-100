@@ -144,15 +144,19 @@ void parse(const std::string &cmdLine, CommandLine &result) {
                 else {
                     root = c;
                     reinterpret_cast<Connector*>(c)->setLeft(parsedResult);
+                    parsedResult->parent = c;
                 }
             } else {
                 if (c != nullptr) {
                     Base* temp = root;
                     reinterpret_cast<Connector*>(c)->setLeft(temp);
+                    temp->parent = c;
                     reinterpret_cast<Connector*>(temp)->setRight(parsedResult);
+                    parsedResult->parent = temp;
                     root = c;
                 } else {
                     reinterpret_cast<Connector*>(root)->setRight(parsedResult);
+                    parsedResult->parent = root;
                 }
             }
         }

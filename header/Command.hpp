@@ -15,10 +15,12 @@ public:
     virtual std::string toString();
     
     char* getOutput();
+    std::string getOutputStr();
 private:
     int size;
     const char** args;
     char* output;
+    std::string outString;
 };
 
 #endif

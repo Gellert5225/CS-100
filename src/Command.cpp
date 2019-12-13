@@ -53,7 +53,7 @@ bool Command::execute() {
         time(&when);
         close(pipe_fd_1[0]);
         int cp = dup(1);
-        dup2(pipe_fd_1[1], 1);
+        if (parent != nullptr) dup2(pipe_fd_1[1], 1);
         close(pipe_fd_1[1]);
 
         if (execvp(args[0], (char* const*)args) < 0) {
@@ -67,11 +67,12 @@ bool Command::execute() {
         close(pipe_fd_1[1]); 
         int size = read(pipe_fd_1[0], inbuf, sizeof(inbuf));
         if (size != 0) {
+            //printf("size is %i\n", size);
             char actual[size + 1];
             strcpy(actual, inbuf);
             actual[size] = '\0';
-            //printf("inbuf of command is %s\n", actual);
             output = actual;
+            outString = std::string(actual);
         }
         
         endId = waitpid(childId, &status, 0);
@@ -108,4 +109,8 @@ std::string Command::toString() {
 
 char* Command::getOutput() {
     return output;
+}
+
+std::string Command::getOutputStr() {
+    return outString;
 }

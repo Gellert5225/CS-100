@@ -14,6 +14,7 @@ public:
 
     char* getInput();
     char* getOutput();
+    std::string getOutputStr();
 
     void setInput(char*);
     void setOutput(char*);

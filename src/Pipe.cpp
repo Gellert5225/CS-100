@@ -24,8 +24,8 @@ Pipe::~Pipe() {
 
 bool Pipe::execute() {
     if (!left->execute()) return false;
-    if (dynamic_cast<Redirection*>(left) == nullptr) input = strdup(dynamic_cast<Command*>(left)->getOutput());
-    else input = strdup(dynamic_cast<Redirection*>(left)->getOutput());
+    if (dynamic_cast<Redirection*>(left) == nullptr) input = strdup(dynamic_cast<Command*>(left)->getOutputStr().c_str());
+    else input = strdup(dynamic_cast<Redirection*>(left)->getOutputStr().c_str());
     
     char inbuf[1024];
     int pipe_fd[2], pipe_fd_1[2], pid, status, endId;
@@ -46,6 +46,7 @@ bool Pipe::execute() {
         close(pipe_fd[0]); 
         close(pipe_fd_1[1]); 
 
+        //printf("input is %s\n", input);
         write(pipe_fd[1], input, strlen(input));
         close(pipe_fd[1]);
 
@@ -56,6 +57,7 @@ bool Pipe::execute() {
         actual[size] = '\0';
         //printf("inbuf is %s\n", actual);
         output = actual;
+        outString.assign(actual, size);
 
         endId = waitpid(pid, &status, 0);
         if (endId == -1) {
@@ -77,7 +79,7 @@ bool Pipe::execute() {
         close(pipe_fd[1]);
         close(pipe_fd_1[0]);
         dup2(pipe_fd[0], 0);
-        dup2(pipe_fd_1[1], 1);
+        if (parent != nullptr) dup2(pipe_fd_1[1], 1);
         close(pipe_fd[0]);
         close(pipe_fd_1[1]);
 
@@ -113,4 +115,8 @@ void Pipe::setInput(char* c) {
 }
 void Pipe::setOutput(char* c) {
     output = c;
+}
+
+std::string Pipe::getOutputStr() {
+    return outString;
 }

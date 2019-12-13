@@ -13,6 +13,7 @@ public:
 
     virtual char* getInput() = 0;
     virtual char* getOutput() = 0;
+    virtual std::string getOutputStr() = 0;
 
     virtual void setInput(char*) = 0;
     virtual void setOutput(char*) = 0;
