@@ -12,7 +12,7 @@ public:
     virtual std::string toString() = 0;
 
     virtual char* getInput() = 0;
-    virtual std::string getOutput() = 0;
+    virtual char* getOutput() = 0;
 
     virtual void setInput(char*) = 0;
     virtual void setOutput(char*) = 0;

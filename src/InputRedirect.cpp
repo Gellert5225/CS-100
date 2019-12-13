@@ -37,10 +37,9 @@ bool InputRedirect::execute() {
         close(pipe_fd[1]);
 
         int size = read(pipe_fd[0], inbuf, 1024);
-        char actual[size];
+        char actual[size + 1];
         strcpy(actual, inbuf);
-
-        printf("%s\n", actual);
+        actual[size] = '\0';
         output = actual;
 
         endId = waitpid(pid, &status, 0);
@@ -89,8 +88,8 @@ std::string InputRedirect::toString() {
 char* InputRedirect::getInput() {
     return input;
 }
-std::string InputRedirect::getOutput() {
-    return std::string(output);
+char* InputRedirect::getOutput() {
+    return output;
 }
 
 void InputRedirect::setInput(char* c) {

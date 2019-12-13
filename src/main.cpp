@@ -20,6 +20,7 @@
 #include "ParsePrecedence.hpp"
 #include "InputRedirect.hpp"
 #include "Pipe.hpp"
+#include "OutputRedirect.hpp"
 
 void parse(const std::string &cmdLine, CommandLine &result);
 
@@ -103,6 +104,9 @@ void parse(const std::string &cmdLine, CommandLine &result) {
         } else if (arg == "<") { // input redir
             printf("input redir\n");
             c = new InputRedirect();
+            endOfCmd = true;
+        } else if (arg == ">") {
+            c = new OutputRedirect();
             endOfCmd = true;
         } else if (arg == "||") {
             c = new Or();

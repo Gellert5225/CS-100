@@ -1,4 +1,4 @@
-#include "Pipe.hpp"
+#include "OutputRedirect.hpp"
 #include "helper.hpp"
 
 #include <stdio.h>
@@ -7,22 +7,17 @@
 #include <sys/types.h>
 #include <fcntl.h>
 #include <cstring>
+#include <vector>
+#include <fstream>
 
-Pipe::Pipe()
-:Redirection() {
-    if (dynamic_cast<Redirection*>(left) != nullptr) {
-        input = strdup(dynamic_cast<Redirection*>(left)->getOutput());
-    } else {
-        input = new char[2];
-    }
+OutputRedirect::OutputRedirect()
+: Redirection() {
+    
 }
 
-Pipe::~Pipe() {
-    delete [] input;
-    input = nullptr;
-}
+OutputRedirect::~OutputRedirect() {}
 
-bool Pipe::execute() {
+bool OutputRedirect::execute() {
     left->execute();
     input = strdup(dynamic_cast<Redirection*>(left)->getOutput());
     char inbuf[1024];
@@ -40,10 +35,17 @@ bool Pipe::execute() {
         exit(EXIT_FAILURE);
     }
 
+    int out = open(right->toString().c_str(), O_WRONLY); 
+    if (out < 0) { 
+        std::ofstream outfile(right->toString().c_str()); 
+        out = open(right->toString().c_str(), O_WRONLY);
+    }
+
     if ((pid = fork()) > 0) { 
         close(pipe_fd[0]); 
         close(pipe_fd_1[1]); 
 
+        printf("input is %s\n", input);
         write(pipe_fd[1], input, strlen(input));
         close(pipe_fd[1]);
 
@@ -54,6 +56,12 @@ bool Pipe::execute() {
         actual[size] = '\0';
         printf("inbuf is %s\n", actual);
         output = actual;
+
+        std::ofstream myfile(right->toString().c_str());
+        if (myfile.is_open()) {
+            myfile << actual;
+            myfile.close();
+        }
 
         endId = waitpid(pid, &status, 0);
         if (endId == -1) {
@@ -79,15 +87,17 @@ bool Pipe::execute() {
         close(pipe_fd[0]);
         close(pipe_fd_1[1]);
 
-        std::vector<std::string> v = convert(right);
-        //printf("right is %s\n", right->toString().c_str());
-        char* cmd[v.size() + 1];
-        for (int i = 0; i < v.size(); i++) {
-            cmd[i] = const_cast<char*>(v.at(i).c_str());
-        }
-        cmd[v.size()] = 0;
-        if (execvp(cmd[0], cmd) < 0) {
-            printf("Error executing command, %s\n", strerror(errno));
+        // std::vector<std::string> v = convert(left);
+        // char* cmd[v.size() + 1];
+        // for (int i = 0; i < v.size(); i++) {
+        //     cmd[i] = const_cast<char*>(v.at(i).c_str());
+        // }
+
+        // cmd[v.size()] = 0;
+
+        char* argv[2] = {"cat", NULL};
+        if (execvp(argv[0], argv) < 0) {
+            printf("Error executing command %s, %s\n", argv[0], strerror(errno));
             exit(errno);
         }
     } 
@@ -95,20 +105,20 @@ bool Pipe::execute() {
     return WEXITSTATUS(status) == 0;
 }
 
-std::string Pipe::toString() {
-    return "|";
+std::string OutputRedirect::toString() {
+    return ">";
 }
 
-char* Pipe::getInput() {
+char* OutputRedirect::getInput() {
     return input;
 }
-char* Pipe::getOutput() {
+char* OutputRedirect::getOutput() {
     return output;
 }
 
-void Pipe::setInput(char* c) {
+void OutputRedirect::setInput(char* c) {
     input = c;
 }
-void Pipe::setOutput(char* c) {
+void OutputRedirect::setOutput(char* c) {
     output = c;
 }

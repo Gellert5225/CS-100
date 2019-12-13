@@ -12,7 +12,7 @@ public:
     std::string toString();
 
     char* getInput();
-    std::string getOutput();
+    char* getOutput();
 
     void setInput(char*);
     void setOutput(char*);
